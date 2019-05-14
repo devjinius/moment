@@ -3,7 +3,7 @@ const app = express();
 const http = require('http');
 
 const path = require('path');
-// const routes = require('./routes');
+const routes = require('./routes');
 const bodyParser = require('body-parser');
 
 // const port = parseInt(process.env.PORT, 10) || 8080;
@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use('/api', routes);
+app.use('/api', routes);
 
 const server = http.createServer(app);
 server.listen(port);
