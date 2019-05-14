@@ -1,0 +1,17 @@
+{
+  "name": "moment",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "https://github.com/eugene94/moment.git",
+  "author": "eugene94 <eugenekang94@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql2": "^1.6.5",
+    "nodemon": "^1.19.0",
+    "sequelize": "^5.8.6"
+  }
+}
