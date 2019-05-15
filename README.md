@@ -10,7 +10,7 @@ live in the moment
 2. mysql 설치
 3. yarn 설치
 
-   > npm install -g yarn
+> npm install yarn -g
 
 4. sequelize로 db 세팅
 
@@ -26,10 +26,16 @@ live in the moment
 
 > sequelize db:seed
 
-5. 프론트 빌드
+5. client 빌드
 
-6. 서버 실행
+> cd client
 
-> cd server
+> yarn build
 
-> yarn start
+6. pm2 설치
+
+> npm install pm2 -g
+
+7. 두개의 서버 실행
+
+> pm2 start myapp.config.js
