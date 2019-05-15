@@ -39,29 +39,17 @@ class Todo extends Component {
                   <Grid.Column width={1} style={{ borderRadius: '0px' }}>
                     <Button
                       floated="right"
-                      size="big"
+                      size="large"
                       basic
                       icon={isDone ? 'check circle outline' : 'circle outline'}
-                      color={isDone ? 'green' : ''}
+                      color={isDone ? 'green' : 'black'}
                     />
                   </Grid.Column>
                   <Grid.Column width={1} style={{ borderRadius: '0px' }}>
-                    <Button
-                      floated="right"
-                      size="big"
-                      basic
-                      icon="star"
-                      color={isDone ? 'yellow' : ''}
-                    />
+                    <Button floated="right" size="large" basic icon="star" color="yellow" />
                   </Grid.Column>
                   <Grid.Column width={1} style={{ borderRadius: '0px' }}>
-                    <Button
-                      floated="right"
-                      size="big"
-                      basic
-                      icon="pencil"
-                      color={isDone ? 'brown' : ''}
-                    />
+                    <Button floated="right" size="large" basic icon="pencil" color="brown" />
                   </Grid.Column>
                 </Grid>
               </Accordion.Content>

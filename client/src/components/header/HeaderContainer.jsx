@@ -13,8 +13,7 @@ const Wrapper = styled.div`
 `;
 
 const style = {
-  h1: { fontSize: '4em' },
-  h2: { fontSize: '0.4em' }
+  h1: { fontSize: '3em' }
 };
 
 const HeaderContainer = ({ header, subHeader }) => (
