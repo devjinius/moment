@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import './todo.scss';
 import { Accordion, Icon, Grid, GridColumn, Button } from 'semantic-ui-react';
+
+const TodoContent = styled.p``;
+
+const TodoHeader = styled.span``;
 
 class Todo extends Component {
   state = { activeIndex: -1 };
@@ -16,27 +21,27 @@ class Todo extends Component {
   render(props) {
     const { activeIndex } = this.state;
     const { isDone } = this.props;
-    const textStyle = {
-      textDecoration: isDone ? 'line-through' : 'none'
-    };
+
     return (
-      <Grid style={{ marginTop: '0.3rem' }}>
+      <Grid className="todo-grid">
         <Grid.Row>
           <Grid.Column width={14}>
-            <Accordion styled style={{ width: '100%' }}>
+            <Accordion className="todo-accordion" styled>
               <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                <span style={textStyle}>집에가기</span>
+                <TodoHeader className={isDone ? 'done' : 'todo'}>집에가기</TodoHeader>
                 <Icon name="alarm" color="red" />
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 0}>
                 <Grid>
                   <Grid.Column width={13}>
-                    <p style={textStyle}>
+                    <TodoContent className={isDone ? 'done' : 'todo'}>
                       오늘은 빠르게 집에 갈 수 있으면 하는 마음에 투두리스트에 추가를 해본다.
-                    </p>
-                    <p style={textStyle}>2019. 5. 10 12:00</p>
+                    </TodoContent>
+                    <TodoContent className={isDone ? 'done' : 'todo'}>
+                      2019. 5. 10 12:00
+                    </TodoContent>
                   </Grid.Column>
-                  <Grid.Column width={1} style={{ borderRadius: '0px' }}>
+                  <Grid.Column width={1}>
                     <Button
                       floated="right"
                       size="large"
@@ -45,10 +50,10 @@ class Todo extends Component {
                       color={isDone ? 'green' : 'black'}
                     />
                   </Grid.Column>
-                  <Grid.Column width={1} style={{ borderRadius: '0px' }}>
+                  <Grid.Column width={1}>
                     <Button floated="right" size="large" basic icon="star" color="yellow" />
                   </Grid.Column>
-                  <Grid.Column width={1} style={{ borderRadius: '0px' }}>
+                  <Grid.Column width={1}>
                     <Button floated="right" size="large" basic icon="pencil" color="brown" />
                   </Grid.Column>
                 </Grid>

@@ -1,12 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Segment, Input, Button } from 'semantic-ui-react';
+import { Grid, Input, Button } from 'semantic-ui-react';
 
 const Wrapper = styled.div`
-  background-color: white;
-  width: inherit;
-  position: relative;
-  color: black;
   padding: 1rem;
   margin-top: 1rem;
 `;
