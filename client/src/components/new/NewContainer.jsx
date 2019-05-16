@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   margin-top: 1rem;
 `;
 
-const CreateContainer = props => (
+const NewContainer = props => (
   <Wrapper>
     <Grid>
       <Grid.Row>
@@ -22,4 +22,4 @@ const CreateContainer = props => (
   </Wrapper>
 );
 
-export default CreateContainer;
+export default NewContainer;

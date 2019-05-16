@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { CreateContainer } from '../components/create';
+import { NewContainer } from '../components/new';
 import { TodoContainer } from '../components/todo';
 
 function App() {
   return (
     <>
-      <CreateContainer />
+      <NewContainer />
       <TodoContainer />
     </>
   );
