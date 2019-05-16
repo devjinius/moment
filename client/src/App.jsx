@@ -1,16 +1,19 @@
 import React from 'react';
 import './App.scss';
+import { Route, BrowserRouter } from 'react-router-dom';
+import { Home, EditTodo } from './pages';
+
 import { HeaderContainer } from './components/header';
-import { CreateContainer } from './components/create';
-import { TodoContainer } from './components/todo';
 import { Container } from 'semantic-ui-react';
 
 function App() {
   return (
     <Container>
       <HeaderContainer />
-      <CreateContainer />
-      <TodoContainer />
+      <BrowserRouter>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/edit" component={EditTodo} />
+      </BrowserRouter>
     </Container>
   );
 }

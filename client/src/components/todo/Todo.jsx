@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 import './todo.scss';
 import { Accordion, Icon, Grid, GridColumn, Button } from 'semantic-ui-react';
 
@@ -54,7 +56,9 @@ class Todo extends Component {
                     <Button floated="right" size="large" basic icon="star" color="yellow" />
                   </Grid.Column>
                   <Grid.Column width={1}>
-                    <Button floated="right" size="large" basic icon="pencil" color="brown" />
+                    <Link to="/edit">
+                      <Button floated="right" size="large" basic icon="pencil" color="brown" />
+                    </Link>
                   </Grid.Column>
                 </Grid>
               </Accordion.Content>
