@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EditContainer } from '../components/edit';
+import { EditContainer } from '../components/todo';
 
 function App() {
   return <EditContainer />;
