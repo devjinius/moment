@@ -43,23 +43,21 @@ class Home extends Component {
     });
   };
 
-  handleCreate = () => {
+  createTodo = async () => {
     const { newInput, todos } = this.state;
     if (newInput === '') {
       alert('내용을 입력해주세요.'); // modal로 변경 예정
       return;
     }
-    this.setState({
-      newInput: '',
 
-      // axios로 데이터 받아오기
-      todos: todos.concat({
-        id: 10,
-        title: newInput,
-        desc: '',
-        deadline: '2019-12-20',
-        checked: false
-      })
+    const submitData = { title: newInput };
+
+    ApiCommon.post('/api/todo', submitData).then(res => {
+      const { data } = res.data;
+      this.setState({
+        newInput: '',
+        todos: todos.concat(data)
+      });
     });
   };
 
@@ -86,7 +84,7 @@ class Home extends Component {
 
     return (
       <>
-        <NewContainer value={newInput} onChange={this.handleChange} onCreate={this.handleCreate} />
+        <NewContainer value={newInput} onChange={this.handleChange} onCreate={this.createTodo} />
         <TodoContainer todos={todos} handleToggle={this.handleToggle} />
       </>
     );

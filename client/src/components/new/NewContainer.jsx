@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   margin-top: 1rem;
 `;
 
-const NewContainer = ({ value, onChange, onCreate }) => (
+const NewContainer = ({ value, onChange, createTodo }) => (
   <Wrapper>
     <Form>
       <Grid>
@@ -22,7 +22,7 @@ const NewContainer = ({ value, onChange, onCreate }) => (
             />
           </Grid.Column>
           <Grid.Column floated="right" width={2}>
-            <Button circular icon="plus" size="large" onClick={onCreate} />
+            <Button circular icon="plus" size="large" onClick={createTodo} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
