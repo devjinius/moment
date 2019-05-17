@@ -5,6 +5,7 @@ import { TodoContainer } from '../components/todo';
 
 class Home extends Component {
   state = {
+    newInput: '',
     todos: [
       {
         id: 0,
@@ -22,6 +23,32 @@ class Home extends Component {
         checked: false
       }
     ]
+  };
+
+  handleChange = e => {
+    this.setState({
+      newInput: e.target.value
+    });
+  };
+
+  handleCreate = () => {
+    const { newInput, todos } = this.state;
+    if (newInput === '') {
+      alert('내용을 입력해주세요.'); // modal로 변경 예정
+      return;
+    }
+    this.setState({
+      newInput: '',
+
+      // axios로 데이터 받아오기
+      todos: todos.concat({
+        id: 10,
+        title: newInput,
+        desc: '',
+        deadline: '2019-12-20',
+        checked: false
+      })
+    });
   };
 
   handleToggle = id => {
@@ -43,11 +70,11 @@ class Home extends Component {
   };
 
   render() {
-    const { todos } = this.state;
+    const { newInput, todos } = this.state;
 
     return (
       <>
-        <NewContainer />
+        <NewContainer value={newInput} onChange={this.handleChange} onCreate={this.handleCreate} />
         <TodoContainer todos={todos} handleToggle={this.handleToggle} />
       </>
     );
