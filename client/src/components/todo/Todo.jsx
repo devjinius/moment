@@ -22,7 +22,7 @@ class Todo extends Component {
 
   render(props) {
     const { activeIndex } = this.state;
-    const { title, desc, deadline, id, checked, onToggle } = this.props;
+    const { title, content, deadline, id, checked, onToggle } = this.props;
 
     return (
       <Grid className="todo-grid">
@@ -36,7 +36,7 @@ class Todo extends Component {
               <Accordion.Content active={activeIndex === 0}>
                 <Grid>
                   <Grid.Column width={13}>
-                    <TodoContent className={checked ? 'done' : 'todo'}>{desc}</TodoContent>
+                    <TodoContent className={checked ? 'done' : 'todo'}>{content}</TodoContent>
                     <TodoContent className={checked ? 'done' : 'todo'}>{deadline}</TodoContent>
                   </Grid.Column>
                   <Grid.Column width={1}>
