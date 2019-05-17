@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 import './TodoForm.scss';
 
 import { DateTimeInput } from 'semantic-ui-calendar-react';
@@ -17,34 +18,23 @@ import {
 } from 'semantic-ui-react';
 
 class TodoForm extends Component {
-  state = { title: '', desc: '', priority: 0, isDone: true, deadline: '' };
-
-  handleChange = (e, { name, value }) => this.setState({ [name]: value });
-
-  checkboxHandleChange = (e, { name, checked }) => this.setState({ [name]: checked });
-
   render() {
-    const { title, desc, priority, isDone, deadline } = this.state;
+    const { title, desc, priority, isDone, deadline, handleChange, onToggle } = this.props;
 
     return (
       <Grid>
-        <Grid.Column style={{ width: '100%' }}>
+        <Grid.Column>
           <Form size="large">
-            <Segment>
+            <Segment stacked clearing>
               <Form.Field>
-                <Input
-                  name="title"
-                  placeholder="Title"
-                  value={title}
-                  onChange={this.handleChange}
-                />
+                <Input name="title" placeholder="Title" value={title} onChange={handleChange} />
               </Form.Field>
               <Form.Field>
                 <TextArea
                   name="desc"
                   placeholder="Description"
                   value={desc}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 />
               </Form.Field>
               <Divider section />
@@ -55,7 +45,7 @@ class TodoForm extends Component {
                   name="priority"
                   value={1}
                   checked={priority === 1}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 />
               </Form.Field>
               <Form.Field>
@@ -64,7 +54,7 @@ class TodoForm extends Component {
                   name="priority"
                   value={2}
                   checked={priority === 2}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 />
               </Form.Field>
               <Form.Field>
@@ -73,7 +63,7 @@ class TodoForm extends Component {
                   name="priority"
                   value={3}
                   checked={priority === 3}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 />
               </Form.Field>
               <Form.Field>
@@ -82,38 +72,40 @@ class TodoForm extends Component {
                   name="priority"
                   value={4}
                   checked={priority === 4}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                   color="red"
                 />
               </Form.Field>
               <Divider section />
-              <Header as="h3">마감기한</Header>
-              <DateTimeInput
-                name="deadline"
-                placeholder="Deadline"
-                value={deadline}
-                iconPosition="left"
-                clearable
-                closable
-                dateFormat="YYYY-MM-DD"
-                onChange={this.handleChange}
-              />
-              <Divider section />
-              <Header as="h3">완료</Header>
-              <Form.Field>
-                <Checkbox
-                  name="isDone"
-                  slider
-                  checked={isDone}
-                  onChange={this.checkboxHandleChange}
-                />
-              </Form.Field>
-              <Button.Group>
-                <Button>취소</Button>
-                <Button.Or />
-                <Button positive>수정하기</Button>
-              </Button.Group>
+              <Grid columns={2}>
+                <Grid.Column>
+                  <Header as="h3">마감기한</Header>
+                  <DateTimeInput
+                    name="deadline"
+                    placeholder="Deadline"
+                    value={deadline}
+                    iconPosition="left"
+                    clearable
+                    closable
+                    dateFormat="YYYY-MM-DD"
+                    onChange={handleChange}
+                  />
+                </Grid.Column>
+                <Grid.Column>
+                  <Header as="h3">완료</Header>
+                  <Form.Field>
+                    <Checkbox name="isDone" slider checked={isDone} onChange={onToggle} />
+                  </Form.Field>
+                </Grid.Column>
+              </Grid>
             </Segment>
+            <Button.Group floated="right">
+              <Link to="/">
+                <Button>취소</Button>
+              </Link>
+              <Button.Or />
+              <Button positive>수정하기</Button>
+            </Button.Group>
           </Form>
         </Grid.Column>
       </Grid>
