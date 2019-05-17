@@ -16,7 +16,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      status: {
+      checked: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: false
+      },
+      priority: {
         type: DataTypes.INTEGER,
         allowNull: true,
         defaultValue: 1
@@ -31,11 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Todo.associate = models => {
-    Todo.hasMany(models.Status, {
-      foreignKey: 'status'
-    });
-  };
+  Todo.associate = models => {};
 
   return Todo;
 };

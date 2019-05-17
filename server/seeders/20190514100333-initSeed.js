@@ -2,21 +2,11 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface
-      .bulkInsert('Statuses', [{ desc: 'todo' }, { desc: 'doing' }, { desc: 'done' }], {})
-      .then(() =>
-        queryInterface.bulkInsert(
-          'Todos',
-          [
-            {
-              title: 'test',
-              content: 'this is test data',
-              status: '1'
-            }
-          ],
-          {}
-        )
-      );
+    return queryInterface.bulkInsert(
+      'Todos',
+      [{ title: 'test', content: 'this is test data' }],
+      {}
+    );
   },
 
   down: (queryInterface, Sequelize) => {
