@@ -9,15 +9,9 @@ const Wrapper = styled.div`
 
 class TodoContainer extends Component {
   render() {
-    return (
-      <Wrapper>
-        <Todo isDone={true} />
-        <Todo isDone={true} />
-        <Todo />
-        <Todo />
-        <Todo />
-      </Wrapper>
-    );
+    const { todos, handleToggle } = this.props;
+    const todoList = todos.map(todo => <Todo {...todo} onToggle={handleToggle} key={todo.id} />);
+    return <Wrapper>{todoList}</Wrapper>;
   }
 }
 

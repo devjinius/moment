@@ -22,7 +22,7 @@ class Todo extends Component {
 
   render(props) {
     const { activeIndex } = this.state;
-    const { isDone } = this.props;
+    const { title, desc, deadline, id, checked, onToggle } = this.props;
 
     return (
       <Grid className="todo-grid">
@@ -30,35 +30,34 @@ class Todo extends Component {
           <Grid.Column width={14}>
             <Accordion className="todo-accordion" styled>
               <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                <TodoHeader className={isDone ? 'done' : 'todo'}>집에가기</TodoHeader>
+                <TodoHeader className={checked ? 'done' : 'todo'}>{title}</TodoHeader>
                 <Icon name="alarm" color="red" />
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 0}>
                 <Grid>
                   <Grid.Column width={13}>
-                    <TodoContent className={isDone ? 'done' : 'todo'}>
-                      오늘은 빠르게 집에 갈 수 있으면 하는 마음에 투두리스트에 추가를 해본다.
-                    </TodoContent>
-                    <TodoContent className={isDone ? 'done' : 'todo'}>
-                      2019. 5. 10 12:00
-                    </TodoContent>
+                    <TodoContent className={checked ? 'done' : 'todo'}>{desc}</TodoContent>
+                    <TodoContent className={checked ? 'done' : 'todo'}>{deadline}</TodoContent>
                   </Grid.Column>
                   <Grid.Column width={1}>
                     <Button
-                      floated="right"
+                      name="checked"
                       size="large"
+                      floated="right"
+                      value={checked}
                       basic
-                      icon={isDone ? 'check circle outline' : 'circle outline'}
-                      color={isDone ? 'green' : 'black'}
+                      icon={checked ? 'check circle outline' : 'circle outline'}
+                      color={checked ? 'green' : 'black'}
+                      onClick={e => onToggle(id)}
                     />
-                  </Grid.Column>
-                  <Grid.Column width={1}>
-                    <Button floated="right" size="large" basic icon="star" color="yellow" />
                   </Grid.Column>
                   <Grid.Column width={1}>
                     <Link to="/edit">
                       <Button floated="right" size="large" basic icon="pencil" color="brown" />
                     </Link>
+                  </Grid.Column>
+                  <Grid.Column width={1}>
+                    <Button floated="right" size="large" basic icon="delete" color="red" />
                   </Grid.Column>
                 </Grid>
               </Accordion.Content>
