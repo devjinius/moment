@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { NewContainer } from '../components/new';
 import { TodoContainer } from '../components/todo';
 
+import ApiCommon from '../lib/ApiCommon';
+
 class Home extends Component {
   state = {
     newInput: '',
@@ -24,6 +26,16 @@ class Home extends Component {
       }
     ]
   };
+
+  componentDidMount() {
+    ApiCommon.get('/api/todos').then(res => {
+      const { data } = res.data;
+      this.setState({
+        ...this.state,
+        todos: data
+      });
+    });
+  }
 
   handleChange = e => {
     this.setState({
