@@ -4,6 +4,23 @@ const model = require('../models/index');
 
 router.get('/todos', (req, res) => {
   model.Todo.findAll({})
+    .then(todo => {
+      res.json({
+        error: false,
+        data: todo
+      });
+    })
+    .catch(err => {
+      res.json({
+        error: true,
+        data: {},
+        error: err
+      });
+    });
+});
+
+router.get('/todo/:id', (req, res) => {
+  model.Todo.findOne({ where: { id: req.params.id } })
     .then(todos => {
       res.json({
         error: false,

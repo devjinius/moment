@@ -17,6 +17,7 @@ const post = (path, data) => {
 };
 
 const patch = (path, id = '', data) => {
+  console.log(path + id);
   return axios.patch(path + id, data);
 };
 

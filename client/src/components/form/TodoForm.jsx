@@ -19,7 +19,7 @@ import {
 
 class TodoForm extends Component {
   render() {
-    const { title, desc, priority, isDone, deadline, handleChange, onToggle } = this.props;
+    const { title, content, priority, isDone, deadline, handleChange, onToggle } = this.props;
 
     return (
       <Grid>
@@ -31,9 +31,9 @@ class TodoForm extends Component {
               </Form.Field>
               <Form.Field>
                 <TextArea
-                  name="desc"
+                  name="content"
                   placeholder="Description"
-                  value={desc}
+                  value={content}
                   onChange={handleChange}
                 />
               </Form.Field>

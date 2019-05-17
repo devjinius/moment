@@ -52,7 +52,7 @@ class Todo extends Component {
                     />
                   </Grid.Column>
                   <Grid.Column width={1}>
-                    <Link to="/edit">
+                    <Link to={`/edit/${id}`}>
                       <Button floated="right" size="large" basic icon="pencil" color="brown" />
                     </Link>
                   </Grid.Column>

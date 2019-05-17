@@ -12,7 +12,7 @@ function App() {
       <HeaderContainer />
       <BrowserRouter>
         <Route exact path="/" component={Home} />
-        <Route exact path="/edit" component={EditTodo} />
+        <Route exact path="/edit/:id" component={EditTodo} />
       </BrowserRouter>
     </Container>
   );
