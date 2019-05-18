@@ -15,10 +15,11 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    const { newTodo } = this.state;
     ApiCommon.get('/api/todos').then(res => {
       const { data } = res.data;
       this.setState({
-        ...this.state,
+        newTodo,
         todos: data
       });
     });
