@@ -1,11 +1,5 @@
 import axios from 'axios';
 
-// const axiosConfig = () => ({
-//   headers: {
-//     'x-access-token': localStorage.getItem('accessToken')
-//   }
-// });
-
 const get = (path, data) => {
   const requestData = data || '';
   return axios.get(path + requestData);
@@ -17,7 +11,6 @@ const post = (path, data) => {
 };
 
 const patch = (path, id = '', data) => {
-  console.log(path + id);
   return axios.patch(path + id, data);
 };
 

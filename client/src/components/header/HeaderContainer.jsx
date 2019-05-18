@@ -9,12 +9,13 @@ const Wrapper = styled.div`
   margin-top: 1rem;
 `;
 
-const HeaderContainer = ({ header, subHeader }) => (
+const HeaderContainer = props => (
   <Wrapper>
     <Header className="header-title">
       Moment
       <Header.Subheader>Live in the moment</Header.Subheader>
     </Header>
+    <Header as="h5">미래에 할 일을 Todo App에 맡기고 현재에 집중하세요.</Header>
   </Wrapper>
 );
 

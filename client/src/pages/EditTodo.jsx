@@ -34,9 +34,9 @@ class EditTodo extends Component {
 
   editHandleChange = (e, { name, value }) => this.setState({ [name]: value });
 
-  onToggle = (e, { name, checked }) => this.setState({ [name]: checked });
+  handleToggle = (e, { name, checked }) => this.setState({ [name]: checked });
 
-  onSubmit = e => {
+  handleSubmit = e => {
     const data = this.state;
 
     if (data.deadline === '') {
@@ -65,8 +65,8 @@ class EditTodo extends Component {
         <TodoForm
           {...this.state}
           handleChange={this.editHandleChange}
-          onToggle={this.onToggle}
-          onSubmit={this.onSubmit}
+          onToggle={this.handleToggle}
+          onSubmit={this.handleSubmit}
         />
       </Wrapper>
     );

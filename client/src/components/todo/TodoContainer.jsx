@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { default as Todo } from './Todo';
 
-const Wrapper = styled.div`
-  padding: 1rem;
-  margin-top: 1rem;
-`;
+const getTodoList = ({ todos, handleToggle, handleRemove }) =>
+  todos.map(todo => (
+    <Todo {...todo} onToggle={handleToggle} onRemove={handleRemove} key={todo.id} />
+  ));
 
-class TodoContainer extends Component {
-  render() {
-    const { todos, handleToggle, onRemove } = this.props;
-    const todoList = todos.map(todo => (
-      <Todo {...todo} onToggle={handleToggle} onRemove={onRemove} key={todo.id} />
-    ));
-    return <Wrapper>{todoList}</Wrapper>;
-  }
-}
+const TodoContainer = props => {
+  return <>{getTodoList(props)}</>;
+};
 
 export default TodoContainer;

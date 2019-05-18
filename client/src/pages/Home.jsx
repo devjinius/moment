@@ -4,6 +4,12 @@ import { NewContainer } from '../components/new';
 import { TodoContainer } from '../components/todo';
 
 import ApiCommon from '../lib/ApiCommon';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  padding: 1rem;
+  margin-top: 1rem;
+`;
 
 class Home extends Component {
   state = {
@@ -51,7 +57,7 @@ class Home extends Component {
     return text === '' ? true : false;
   }
 
-  onCreate = () => {
+  handleCreate = () => {
     const { newTodo, todos } = this.state;
 
     if (this.isEmpty(newTodo.title)) {
@@ -80,7 +86,7 @@ class Home extends Component {
     });
   };
 
-  onRemove = id => {
+  handleRemove = id => {
     const { todos } = this.state;
 
     ApiCommon.remove('/api/todo/', id).then(res => {
@@ -122,8 +128,14 @@ class Home extends Component {
 
     return (
       <>
-        <NewContainer {...newTodo} onChange={this.handleChange} onCreate={this.onCreate} />
-        <TodoContainer todos={todos} handleToggle={this.handleToggle} onRemove={this.onRemove} />
+        <NewContainer {...newTodo} onChange={this.handleChange} onCreate={this.handleCreate} />
+        <Wrapper>
+          <TodoContainer
+            todos={todos}
+            handleToggle={this.handleToggle}
+            handleRemove={this.handleRemove}
+          />
+        </Wrapper>
       </>
     );
   }
