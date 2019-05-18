@@ -21,8 +21,8 @@ const patch = (path, id = '', data) => {
   return axios.patch(path + id, data);
 };
 
-const del = (path, id = '') => {
+const remove = (path, id = '') => {
   return axios.delete(path + id);
 };
 
-export default { get, post, patch, del };
+export default { get, post, patch, remove };

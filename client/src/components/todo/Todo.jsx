@@ -22,7 +22,7 @@ class Todo extends Component {
 
   render(props) {
     const { activeIndex } = this.state;
-    const { title, content, deadline, id, checked, onToggle } = this.props;
+    const { title, content, deadline, id, checked, onToggle, onRemove } = this.props;
 
     return (
       <Grid className="todo-grid">
@@ -57,7 +57,14 @@ class Todo extends Component {
                     </Link>
                   </Grid.Column>
                   <Grid.Column width={1}>
-                    <Button floated="right" size="large" basic icon="delete" color="red" />
+                    <Button
+                      floated="right"
+                      size="large"
+                      basic
+                      icon="delete"
+                      color="red"
+                      onClick={e => onRemove(id)}
+                    />
                   </Grid.Column>
                 </Grid>
               </Accordion.Content>

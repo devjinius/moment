@@ -69,6 +69,23 @@ class Home extends Component {
     });
   };
 
+  onRemove = id => {
+    const { todos } = this.state;
+
+    ApiCommon.remove('/api/todo/', id).then(res => {
+      const { error, data } = res.data;
+
+      if (error) {
+        return;
+      }
+
+      this.setState({
+        ...this.state,
+        todos: todos.filter(todo => todo.id !== id)
+      });
+    });
+  };
+
   handleToggle = id => {
     const { todos } = this.state;
 
@@ -95,7 +112,7 @@ class Home extends Component {
     return (
       <>
         <NewContainer {...newTodo} onChange={this.handleChange} onCreate={this.onCreate} />
-        <TodoContainer todos={todos} handleToggle={this.handleToggle} />
+        <TodoContainer todos={todos} handleToggle={this.handleToggle} onRemove={this.onRemove} />
       </>
     );
   }
