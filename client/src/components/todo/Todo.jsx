@@ -42,11 +42,28 @@ class Todo extends Component {
     return <></>;
   }
 
+  getDeadlineItem(deadline, checked) {
+    if (checked) {
+      return '';
+    }
+
+    return this.isValidTime(deadline) ? (
+      <div>
+        <Icon name="calendar check outline" />
+        {getTime(deadline)}
+      </div>
+    ) : (
+      ''
+    );
+  }
+
+  isValidTime(time) {
+    return time !== null && time !== undefined;
+  }
+
   render(props) {
     const { activeIndex } = this.state;
     const { title, content, deadline, id, checked, priority, onToggle, onRemove } = this.props;
-
-    const isValidTime = time => time !== null && time !== undefined;
 
     return (
       <Grid className="todo-grid">
@@ -62,9 +79,7 @@ class Todo extends Component {
                 <Grid stackable>
                   <Grid.Column mobile={16} tablet={7} computer={10}>
                     <TodoContent className={checked ? 'done' : 'todo'}>{content}</TodoContent>
-                    <TodoContent className={checked ? 'done' : 'todo'}>
-                      {isValidTime(deadline) ? `마감기한 ${getTime(deadline)}` : ''}
-                    </TodoContent>
+                    {this.getDeadlineItem(deadline, checked)}
                   </Grid.Column>
                   <Grid.Column mobile={16} tablet={3} computer={2}>
                     <Button
