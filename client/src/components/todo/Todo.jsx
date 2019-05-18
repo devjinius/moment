@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './todo.scss';
 import { Accordion, Icon, Grid, GridColumn, Button } from 'semantic-ui-react';
 
-import { getTime } from '../../util';
+import { getTime, getDiffFromNow } from '../../util';
 
 const TodoContent = styled.p``;
 
@@ -61,7 +61,20 @@ class Todo extends Component {
     return time !== null && time !== undefined;
   }
 
-  render(props) {
+  getAlramStatus(deadline, checked) {
+    if (checked) {
+      return false;
+    }
+
+    const diff = getDiffFromNow(deadline);
+    return 0 <= diff && diff <= 3 ? true : false;
+  }
+
+  getAlramItem(deadline, checked) {
+    return this.getAlramStatus(deadline, checked) ? <Icon name="warning" color="red" /> : <></>;
+  }
+
+  render() {
     const { activeIndex } = this.state;
     const { title, content, deadline, id, checked, priority, onToggle, onRemove } = this.props;
 
@@ -72,7 +85,7 @@ class Todo extends Component {
             <Accordion className="todo-accordion" styled>
               <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
                 {this.getPriorityIcon(priority)}
-                {checked ? <Icon name="warning" color="red" /> : <></>}
+                {this.getAlramItem(deadline, checked)}
                 <TodoHeader className={checked ? 'done' : 'todo'}>{title}</TodoHeader>
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 0}>
@@ -88,7 +101,7 @@ class Todo extends Component {
                       fluid
                       basic
                       icon={checked ? 'check circle outline' : 'circle outline'}
-                      color={checked ? 'green' : ''}
+                      color={checked ? 'green' : 'black'}
                       onClick={e => onToggle(id)}
                     />
                   </Grid.Column>
