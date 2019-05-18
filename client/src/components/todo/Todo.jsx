@@ -22,9 +22,29 @@ class Todo extends Component {
     this.setState({ activeIndex: newIndex });
   };
 
+  getPriorityIcon(priority) {
+    if (priority === 1) {
+      return <Icon name="star" color="red" />;
+    }
+
+    if (priority === 2) {
+      return <Icon name="star" color="orange" />;
+    }
+
+    if (priority === 3) {
+      return <Icon name="star" color="grey" />;
+    }
+
+    if (priority === 4) {
+      return <Icon name="star" color="black" />;
+    }
+
+    return <></>;
+  }
+
   render(props) {
     const { activeIndex } = this.state;
-    const { title, content, deadline, id, checked, onToggle, onRemove } = this.props;
+    const { title, content, deadline, id, checked, priority, onToggle, onRemove } = this.props;
 
     const isValidTime = time => time !== null && time !== undefined;
 
@@ -34,44 +54,36 @@ class Todo extends Component {
           <Grid.Column width={14}>
             <Accordion className="todo-accordion" styled>
               <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                <Icon name="star" color="yellow" />
-                {checked ? <Icon name="alarm" color="red" /> : <></>}
+                {this.getPriorityIcon(priority)}
+                {checked ? <Icon name="warning" color="red" /> : <></>}
                 <TodoHeader className={checked ? 'done' : 'todo'}>{title}</TodoHeader>
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 0}>
-                <Grid>
-                  <Grid.Column width={13}>
+                <Grid stackable>
+                  <Grid.Column mobile={16} tablet={7} computer={10}>
                     <TodoContent className={checked ? 'done' : 'todo'}>{content}</TodoContent>
                     <TodoContent className={checked ? 'done' : 'todo'}>
-                      {isValidTime(deadline) ? getTime(deadline) : ''}
+                      {isValidTime(deadline) ? `마감기한 ${getTime(deadline)}` : ''}
                     </TodoContent>
                   </Grid.Column>
-                  <Grid.Column width={1}>
+                  <Grid.Column mobile={16} tablet={3} computer={2}>
                     <Button
                       name="checked"
-                      size="large"
-                      floated="right"
                       value={checked}
+                      fluid
                       basic
                       icon={checked ? 'check circle outline' : 'circle outline'}
-                      color={checked ? 'green' : 'black'}
+                      color={checked ? 'green' : ''}
                       onClick={e => onToggle(id)}
                     />
                   </Grid.Column>
-                  <Grid.Column width={1}>
+                  <Grid.Column mobile={16} tablet={3} computer={2}>
                     <Link to={`/edit/${id}`}>
-                      <Button floated="right" size="large" basic icon="pencil" color="brown" />
+                      <Button basic fluid icon="pencil" color="brown" />
                     </Link>
                   </Grid.Column>
-                  <Grid.Column width={1}>
-                    <Button
-                      floated="right"
-                      size="large"
-                      basic
-                      icon="delete"
-                      color="red"
-                      onClick={e => onRemove(id)}
-                    />
+                  <Grid.Column mobile={16} tablet={3} computer={2}>
+                    <Button basic icon="delete" color="red" fluid onClick={e => onRemove(id)} />
                   </Grid.Column>
                 </Grid>
               </Accordion.Content>

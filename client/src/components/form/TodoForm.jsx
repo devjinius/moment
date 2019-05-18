@@ -81,7 +81,13 @@ class TodoForm extends Component {
                     value={4}
                     checked={priority === 4}
                     onChange={handleChange}
-                    color="red"
+                  />
+                  <Form.Radio
+                    label="지정하지 않음"
+                    name="priority"
+                    value={5}
+                    checked={priority === 5}
+                    onChange={handleChange}
                   />
                 </Form.Group>
                 <Divider section />
