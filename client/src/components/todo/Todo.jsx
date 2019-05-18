@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import './todo.scss';
 import { Accordion, Icon, Grid, GridColumn, Button } from 'semantic-ui-react';
 
+import { getTime } from '../../util';
+
 const TodoContent = styled.p``;
 
 const TodoHeader = styled.span``;
@@ -24,20 +26,25 @@ class Todo extends Component {
     const { activeIndex } = this.state;
     const { title, content, deadline, id, checked, onToggle, onRemove } = this.props;
 
+    const isValidTime = time => time !== null && time !== undefined;
+
     return (
       <Grid className="todo-grid">
         <Grid.Row>
           <Grid.Column width={14}>
             <Accordion className="todo-accordion" styled>
               <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+                <Icon name="star" color="yellow" />
+                {checked ? <Icon name="alarm" color="red" /> : <></>}
                 <TodoHeader className={checked ? 'done' : 'todo'}>{title}</TodoHeader>
-                <Icon name="alarm" color="red" />
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 0}>
                 <Grid>
                   <Grid.Column width={13}>
                     <TodoContent className={checked ? 'done' : 'todo'}>{content}</TodoContent>
-                    <TodoContent className={checked ? 'done' : 'todo'}>{deadline}</TodoContent>
+                    <TodoContent className={checked ? 'done' : 'todo'}>
+                      {isValidTime(deadline) ? getTime(deadline) : ''}
+                    </TodoContent>
                   </Grid.Column>
                   <Grid.Column width={1}>
                     <Button

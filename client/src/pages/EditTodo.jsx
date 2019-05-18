@@ -18,7 +18,7 @@ class EditTodo extends Component {
     content: '',
     priority: 0,
     checked: true,
-    deadline: '',
+    deadline: null,
     success: false,
     error: false
   };
@@ -38,6 +38,10 @@ class EditTodo extends Component {
 
   onSubmit = e => {
     const data = this.state;
+
+    if (data.deadline === '') {
+      data.deadline = null;
+    }
 
     ApiCommon.patch('/api/todo/', data.id, data).then(res => {
       const { error, data } = res.data;

@@ -11,15 +11,22 @@ class Home extends Component {
       value: '',
       error: false
     },
-    todos: []
+    todos: [
+      {
+        id: -1,
+        title: '',
+        content: '',
+        deadline: '',
+        checked: false
+      }
+    ]
   };
 
   componentDidMount() {
-    const { newTodo } = this.state;
     ApiCommon.get('/api/todos').then(res => {
       const { data } = res.data;
       this.setState({
-        newTodo,
+        ...this.state,
         todos: data
       });
     });
@@ -74,7 +81,7 @@ class Home extends Component {
     const { todos } = this.state;
 
     ApiCommon.remove('/api/todo/', id).then(res => {
-      const { error, data } = res.data;
+      const { error } = res.data;
 
       if (error) {
         return;

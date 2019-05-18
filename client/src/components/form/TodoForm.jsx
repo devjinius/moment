@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { getTime, getNow } from '../../util';
 
 import { DateTimeInput } from 'semantic-ui-calendar-react';
 import { Grid, Form, Button, Segment, Divider, Message } from 'semantic-ui-react';
@@ -91,12 +92,13 @@ class TodoForm extends Component {
                       inlineLabel
                       name="deadline"
                       placeholder="Deadline"
-                      value={deadline}
+                      value={getTime(deadline)}
                       iconPosition="left"
                       clearable
                       closable
-                      dateFormat="YYYY-MM-DD"
+                      dateTimeFormat={'YYYY.MM.DD HH:mm'}
                       onChange={handleChange}
+                      minDate={getNow()}
                     />
                   </Form.Field>
                   <Form.Field>

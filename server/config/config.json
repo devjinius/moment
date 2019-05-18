@@ -4,6 +4,7 @@
     "password": "11111111",
     "database": "database_development",
     "host": "127.0.0.1",
+    "timezone": "+09:00",
     "dialect": "mysql"
   },
   "test": {
@@ -17,6 +18,7 @@
     "username": "root",
     "password": null,
     "database": "database_production",
+    "timezone": "+09:00",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
