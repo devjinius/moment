@@ -7,30 +7,11 @@ import ApiCommon from '../lib/ApiCommon';
 
 class Home extends Component {
   state = {
-    newInput: '',
-    todos: [
-      {
-        id: 0,
-        title: '잠자기',
-        content: '잠자기는 역시 겨울잠. 여름잠을 자고싶다.',
-        deadline: '',
-        checked: false
-      },
-      {
-        id: 1,
-        title: '집가기',
-        content: '집에는 언제 가서 편히 쉴까',
-        deadline: '',
-        checked: true
-      },
-      {
-        id: 2,
-        title: '하잇',
-        content: '안녕하세요 곤니찌와 헬로우 반갑습니다.',
-        deadline: '',
-        checked: false
-      }
-    ]
+    newTodo: {
+      value: '',
+      error: false
+    },
+    todos: []
   };
 
   componentDidMount() {
@@ -44,24 +25,45 @@ class Home extends Component {
   }
 
   handleChange = e => {
-    this.setState({
-      newInput: e.target.value
-    });
+    const nextState = {
+      ...this.state,
+      newTodo: {
+        value: e.target.value,
+        error: false
+      }
+    };
+
+    this.setState(nextState);
   };
 
-  createTodo = async () => {
-    const { newInput, todos } = this.state;
-    if (newInput === '') {
-      alert('내용을 입력해주세요.'); // modal로 변경 예정
+  isEmpty(text) {
+    return text === '' ? true : false;
+  }
+
+  onCreate = () => {
+    const { newTodo, todos } = this.state;
+    if (this.isEmpty(newTodo.value)) {
+      this.setState({
+        newTodo: { value: '', error: true },
+        todos
+      });
       return;
     }
 
-    const submitData = { title: newInput };
+    const submitData = { title: newTodo.value };
 
     ApiCommon.post('/api/todo', submitData).then(res => {
-      const { data } = res.data;
+      const { error, data } = res.data;
+
+      if (error) {
+        return;
+      }
+
       this.setState({
-        newInput: '',
+        newTodo: {
+          value: '',
+          error: false
+        },
         todos: todos.concat(data)
       });
     });
@@ -88,11 +90,11 @@ class Home extends Component {
   };
 
   render() {
-    const { newInput, todos } = this.state;
+    const { newTodo, todos } = this.state;
 
     return (
       <>
-        <NewContainer value={newInput} onChange={this.handleChange} onCreate={this.createTodo} />
+        <NewContainer {...newTodo} onChange={this.handleChange} onCreate={this.onCreate} />
         <TodoContainer todos={todos} handleToggle={this.handleToggle} />
       </>
     );
