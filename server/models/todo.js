@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       priority: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue: 1
+        defaultValue: 5
       },
       deadline: {
         type: DataTypes.DATE,

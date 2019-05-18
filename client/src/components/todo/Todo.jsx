@@ -66,6 +66,10 @@ class Todo extends Component {
       return false;
     }
 
+    if (!this.isValidTime(deadline)) {
+      return false;
+    }
+
     const diff = getDiffFromNow(deadline);
     return 0 <= diff && diff <= 3 ? true : false;
   }

@@ -8,7 +8,8 @@ import ApiCommon from '../lib/ApiCommon';
 class Home extends Component {
   state = {
     newTodo: {
-      value: '',
+      title: '',
+      content: '',
       error: false
     },
     todos: [
@@ -33,10 +34,12 @@ class Home extends Component {
   }
 
   handleChange = e => {
+    const { newTodo } = this.state;
     const nextState = {
       ...this.state,
       newTodo: {
-        value: e.target.value,
+        ...newTodo,
+        [e.target.name]: e.target.value,
         error: false
       }
     };
@@ -50,17 +53,16 @@ class Home extends Component {
 
   onCreate = () => {
     const { newTodo, todos } = this.state;
-    if (this.isEmpty(newTodo.value)) {
+
+    if (this.isEmpty(newTodo.title)) {
       this.setState({
-        newTodo: { value: '', error: true },
+        newTodo: { ...newTodo, error: true },
         todos
       });
       return;
     }
 
-    const submitData = { title: newTodo.value };
-
-    ApiCommon.post('/api/todo', submitData).then(res => {
+    ApiCommon.post('/api/todo', newTodo).then(res => {
       const { error, data } = res.data;
 
       if (error) {
@@ -69,7 +71,8 @@ class Home extends Component {
 
       this.setState({
         newTodo: {
-          value: '',
+          title: '',
+          content: '',
           error: false
         },
         todos: todos.concat(data)
