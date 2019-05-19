@@ -7,18 +7,40 @@ live in the moment
 ## Getting Started
 
 1. node 설치
+
+> sudo apt-get update
+
+> sudo apt-get install curl
+
+> curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+
+> source ~/.bashrc
+
+> nvm install 8.16.0
+
+> nvm use 8.16.0
+
+> node -v
+
 2. mysql 설치
+
+> sudo apt-get install mysql-server-5.7
+
 3. yarn 설치
 
 > npm install yarn -g
 
-4. sequelize로 db 세팅
+4. github clone
 
-> cd server
+> git clone https://github.com/eugene94/moment.git
 
-> yarn
+> cd moment
+
+5. sequelize 설치 후 db 세팅
 
 > yarn global add sequelize-cli
+
+> yarn
 
 > sequelize db:create
 
@@ -26,16 +48,14 @@ live in the moment
 
 > sequelize db:seed
 
-5. client 빌드
+6. client 빌드
 
 > cd client
 
+> yarn
+
 > yarn build
 
-6. pm2 설치
+7. 서버 실행
 
-> npm install pm2 -g
-
-7. 두개의 서버 실행
-
-> pm2 start myapp.config.js
+> yarn start
