@@ -46,7 +46,7 @@ module.exports = {
       )
       .then(() =>
         queryInterface.createTable(
-          'priorities',
+          'Priorities',
           {
             id: {
               type: Sequelize.INTEGER,
@@ -78,7 +78,7 @@ module.exports = {
         queryInterface.addConstraint('Todos', ['priority'], {
           type: 'foreign key',
           references: {
-            table: 'priorities',
+            table: 'Priorities',
             field: 'id'
           },
           onDelete: 'set null'

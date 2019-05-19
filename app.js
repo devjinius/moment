@@ -15,4 +15,4 @@ app.get('*', function(req, res) {
   res.sendFile(__dirname + '/client/build/index.html');
 });
 
-app.listen(80);
+app.listen(8000);

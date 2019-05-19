@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      'priorities',
+      'Priorities',
       [
         { label: '매우 중요', color: 'red' },
         { label: '중요', color: 'orange' },
