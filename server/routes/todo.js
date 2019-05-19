@@ -4,34 +4,32 @@ const model = require('../models/index');
 
 router.get('/todos', (req, res) => {
   model.Todo.findAll({})
-    .then(todo => {
+    .then(todos => {
       res.json({
         error: false,
-        data: todo
+        todos
       });
     })
     .catch(err => {
       res.json({
         error: true,
-        data: {},
-        error: err
+        error_message: err.message
       });
     });
 });
 
 router.get('/todo/:id', (req, res) => {
   model.Todo.findOne({ where: { id: req.params.id } })
-    .then(todos => {
+    .then(todo => {
       res.json({
         error: false,
-        data: todos
+        todo
       });
     })
     .catch(err => {
       res.json({
         error: true,
-        data: {},
-        error: err
+        error_message: err.message
       });
     });
 });
@@ -41,13 +39,13 @@ router.post('/todo', (req, res) => {
     .then(todo =>
       res.json({
         error: false,
-        data: todo
+        todo
       })
     )
     .catch(err => {
       res.json({
         error: true,
-        errormsg: err
+        error_message: err.message
       });
     });
 });
@@ -58,13 +56,13 @@ router.delete('/todo/:id', (req, res) => {
       todo.destroy();
       res.json({
         error: false,
-        data: todo
+        todo
       });
     })
     .catch(err => {
       res.json({
         error: true,
-        message: err.message
+        error_message: err.message
       });
     });
 });
@@ -75,14 +73,14 @@ router.patch('/todo/:id', (req, res) => {
       todo.update(req.body).then(todo => {
         res.json({
           error: false,
-          data: todo
+          todo
         });
       });
     })
     .catch(err => {
       res.json({
         error: true,
-        message: err.message
+        error_message: err.message
       });
     });
 });

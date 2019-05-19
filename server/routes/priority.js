@@ -7,7 +7,7 @@ router.get('/priorities', (req, res) => {
     .then(priorities => {
       res.json({
         error: false,
-        data: priorities
+        priorities
       });
     })
     .catch(err => {

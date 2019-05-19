@@ -26,27 +26,20 @@ class Home extends Component {
         deadline: '',
         checked: false
       }
-    ]
+    ],
+    priorities: [{ color: '', id: -1, label: '' }]
   };
 
   componentDidMount() {
-    ApiCommon.get('/api/todos').then(res => {
-      const { data } = res.data;
+    Promise.all([ApiCommon.get('/api/todos'), ApiCommon.get('/api/priorities')]).then(results => {
+      const { todos } = results.shift().data;
+      const { priorities } = results.shift().data;
       this.setState({
         ...this.state,
-        todos: data
+        todos,
+        priorities
       });
     });
-    ApiCommon.get('/api/priorities').then(res => {
-      console.log(res);
-    });
-    // Promise.all([ApiCommon.get('/api/todos'), ApiCommon.get('/api/priorities')]).then(results => {
-    //   const { data } = results.data;
-    //   this.setState({
-    //     ...this.state,
-    //     todos: data
-    //   });
-    // });
   }
 
   handleChange = e => {
@@ -72,26 +65,27 @@ class Home extends Component {
 
     if (this.isEmpty(newTodo.title)) {
       this.setState({
-        newTodo: { ...newTodo, error: true },
-        todos
+        ...this.state,
+        newTodo: { ...newTodo, error: true }
       });
       return;
     }
 
     ApiCommon.post('/api/todo', newTodo).then(res => {
-      const { error, data } = res.data;
+      const { error, todo } = res.data;
 
       if (error) {
         return;
       }
 
       this.setState({
+        ...this.todos,
         newTodo: {
           title: '',
           content: '',
           error: false
         },
-        todos: todos.concat(data)
+        todos: todos.concat(todo)
       });
     });
   };
@@ -127,7 +121,7 @@ class Home extends Component {
       nextTodos[index].checked = data.checked;
 
       this.setState({
-        newInput: '',
+        ...this.state,
         todos: nextTodos
       });
     });
@@ -135,7 +129,6 @@ class Home extends Component {
 
   render() {
     const { newTodo, todos } = this.state;
-
     return (
       <>
         <NewContainer {...newTodo} onChange={this.handleChange} onCreate={this.handleCreate} />

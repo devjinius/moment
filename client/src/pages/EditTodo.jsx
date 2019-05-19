@@ -27,8 +27,8 @@ class EditTodo extends Component {
     const { id } = this.props.match.params;
 
     ApiCommon.get(`/api/todo/${id}`).then(res => {
-      const { data } = res.data;
-      this.setState(data);
+      const { todo } = res.data;
+      this.setState(todo);
     });
   }
 
@@ -39,12 +39,14 @@ class EditTodo extends Component {
   handleSubmit = e => {
     const data = this.state;
 
+    this.setState({ ...this.state, success: false });
+
     if (data.deadline === '') {
       data.deadline = null;
     }
 
     ApiCommon.patch('/api/todo/', data.id, data).then(res => {
-      const { error, data } = res.data;
+      const { error, todo } = res.data;
 
       if (error) {
         const errorState = { ...this.state, error: true };
@@ -53,8 +55,8 @@ class EditTodo extends Component {
         return;
       }
 
-      data.success = true;
-      this.setState(data);
+      todo.success = true;
+      this.setState(todo);
     });
   };
 
