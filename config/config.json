@@ -16,7 +16,7 @@
   },
   "production": {
     "username": "root",
-    "password": null,
+    "password": "11111111",
     "database": "database_production",
     "timezone": "+09:00",
     "host": "127.0.0.1",
