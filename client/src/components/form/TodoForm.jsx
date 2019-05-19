@@ -6,12 +6,39 @@ import { DateTimeInput } from 'semantic-ui-calendar-react';
 import { Grid, Form, Button, Segment, Divider, Message } from 'semantic-ui-react';
 
 class TodoForm extends Component {
+  getPrioritiesRadio(priority, priorities, handleChange) {
+    return priorities
+      .map(prioritiesObj => {
+        return (
+          <Form.Radio
+            label={prioritiesObj.label}
+            name="priority"
+            value={prioritiesObj.id}
+            checked={priority === prioritiesObj.id}
+            onChange={handleChange}
+            key={prioritiesObj.id}
+          />
+        );
+      })
+      .concat(
+        <Form.Radio
+          label="지정하지 않음"
+          name="priority"
+          value={-1}
+          checked={priority === null || priority === -1}
+          onChange={handleChange}
+          key={0}
+        />
+      );
+  }
+
   render() {
     const {
       id,
       title,
       content,
       priority,
+      priorities,
       checked,
       deadline,
       handleChange,
@@ -20,15 +47,13 @@ class TodoForm extends Component {
       success,
       error
     } = this.props;
-    console.log(this.props);
-
     const isLoding = id => (id === -1 ? true : false);
 
     return (
       <Grid>
         <Grid.Row>
           <Grid.Column>
-            <Form size="large" loading={isLoding(id)} success={success} error={error}>
+            <Form loading={isLoding(id)} success={success} error={error}>
               <Segment stacked clearing>
                 <Form.Field>
                   <Form.Input
@@ -55,41 +80,7 @@ class TodoForm extends Component {
                 <Divider section />
                 <Form.Group grouped>
                   <label>Priority</label>
-                  <Form.Radio
-                    label="매우 중요"
-                    name="priority"
-                    value={1}
-                    checked={priority === 1}
-                    onChange={handleChange}
-                  />
-                  <Form.Radio
-                    label="중요"
-                    name="priority"
-                    value={2}
-                    checked={priority === 2}
-                    onChange={handleChange}
-                  />
-                  <Form.Radio
-                    label="보통"
-                    name="priority"
-                    value={3}
-                    checked={priority === 3}
-                    onChange={handleChange}
-                  />
-                  <Form.Radio
-                    label="중요하지 않음"
-                    name="priority"
-                    value={4}
-                    checked={priority === 4}
-                    onChange={handleChange}
-                  />
-                  <Form.Radio
-                    label="지정하지 않음"
-                    name="priority"
-                    value={null}
-                    checked={priority === null}
-                    onChange={handleChange}
-                  />
+                  {this.getPrioritiesRadio(priority, priorities, handleChange)}
                 </Form.Group>
                 <Divider section />
                 <Form.Group widths="equal">
@@ -118,35 +109,37 @@ class TodoForm extends Component {
                     />
                   </Form.Field>
                 </Form.Group>
+
+                {success ? (
+                  <Message
+                    success
+                    header="수정완료"
+                    content="변경하신 사항이 모두 수정되었습니다."
+                  />
+                ) : (
+                  <></>
+                )}
+                {error ? (
+                  <Message
+                    error
+                    header="실패"
+                    content="변경하신 사항이 수정되지 않았습니다. 관리자에게 문의해주세요(123번)"
+                  />
+                ) : (
+                  <></>
+                )}
               </Segment>
+
+              <Button.Group floated="right">
+                <Link to="/">
+                  <Button>돌아가기</Button>
+                </Link>
+                <Button.Or />
+                <Button positive onClick={onSubmit}>
+                  수정하기
+                </Button>
+              </Button.Group>
             </Form>
-            {success ? (
-              <Message success header="수정완료" content="변경하신 사항이 모두 수정되었습니다." />
-            ) : (
-              <></>
-            )}
-            {error ? (
-              <Message
-                error
-                header="실패"
-                content="변경하신 사항이 수정되지 않았습니다. 관리자에게 문의해주세요(123번)"
-              />
-            ) : (
-              <></>
-            )}
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column>
-            <Button.Group floated="right">
-              <Link to="/">
-                <Button>돌아가기</Button>
-              </Link>
-              <Button.Or />
-              <Button positive onClick={onSubmit}>
-                수정하기
-              </Button>
-            </Button.Group>
           </Grid.Column>
         </Grid.Row>
       </Grid>
