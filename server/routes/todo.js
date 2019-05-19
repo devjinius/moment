@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const model = require('../models/index');
+const errorMessage = require('../util/errorMessage');
 
 router.get('/todos', (req, res) => {
   model.Todo.findAll({})
@@ -11,9 +12,10 @@ router.get('/todos', (req, res) => {
       });
     })
     .catch(err => {
+      console.log(`에러가 발생했습니다. ${err.message}`);
       res.json({
         error: true,
-        error_message: err.message
+        errorMessage: errorMessage(0001)
       });
     });
 });
@@ -27,9 +29,10 @@ router.get('/todo/:id', (req, res) => {
       });
     })
     .catch(err => {
+      console.log(`에러가 발생했습니다. ${err.message}`);
       res.json({
         error: true,
-        error_message: err.message
+        errorMessage: errorMessage(0002)
       });
     });
 });
@@ -43,9 +46,10 @@ router.post('/todo', (req, res) => {
       })
     )
     .catch(err => {
+      console.log(`에러가 발생했습니다. ${err.message}`);
       res.json({
         error: true,
-        error_message: err.message
+        errorMessage: errorMessage(0003)
       });
     });
 });
@@ -60,9 +64,10 @@ router.delete('/todo/:id', (req, res) => {
       });
     })
     .catch(err => {
+      console.log(`에러가 발생했습니다. ${err.message}`);
       res.json({
         error: true,
-        error_message: err.message
+        errorMessage: errorMessage(0004)
       });
     });
 });
@@ -78,9 +83,10 @@ router.patch('/todo/:id', (req, res) => {
       });
     })
     .catch(err => {
+      console.log(`에러가 발생했습니다. ${err.message}`);
       res.json({
         error: true,
-        error_message: err.message
+        errorMessage: errorMessage(0005)
       });
     });
 });

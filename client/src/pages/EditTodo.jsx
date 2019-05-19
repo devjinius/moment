@@ -21,7 +21,8 @@ class EditTodo extends Component {
       checked: true,
       deadline: null,
       success: false,
-      error: false
+      error: false,
+      errorMessage: ''
     },
     priorities: [{ color: '', id: -1, label: '' }]
   };
@@ -31,12 +32,22 @@ class EditTodo extends Component {
 
     Promise.all([ApiCommon.get(`/api/todo/${id}`), ApiCommon.get('/api/priorities')]).then(
       results => {
-        const { todo } = results.shift().data;
-        const { priorities } = results.shift().data;
+        const todoData = results.shift().data;
+        const priorityData = results.shift().data;
+
+        if (todoData.error) {
+          alert(todoData.errorMessage);
+          return;
+        }
+        if (priorityData.error) {
+          alert(priorityData.errorMessage);
+          return;
+        }
+
         this.setState({
           ...this.state,
-          todo,
-          priorities
+          todo: todoData.todo,
+          priorities: priorityData.priorities
         });
       }
     );
@@ -70,10 +81,10 @@ class EditTodo extends Component {
     }
 
     ApiCommon.patch('/api/todo/', todo.id, todo).then(res => {
-      const { error, todo } = res.data;
+      const { todo, error, errorMessage } = res.data;
 
       if (error) {
-        const errorState = { ...this.state, todo: { ...todo, error: true } };
+        const errorState = { ...this.state, todo: { ...todo, error, errorMessage } };
         this.setState(errorState);
 
         return;

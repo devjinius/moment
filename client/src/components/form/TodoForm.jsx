@@ -45,7 +45,8 @@ class TodoForm extends Component {
       onToggle,
       onSubmit,
       success,
-      error
+      error,
+      errorMessage
     } = this.props;
     const isLoding = id => (id === -1 ? true : false);
 
@@ -119,15 +120,7 @@ class TodoForm extends Component {
                 ) : (
                   <></>
                 )}
-                {error ? (
-                  <Message
-                    error
-                    header="실패"
-                    content="변경하신 사항이 수정되지 않았습니다. 관리자에게 문의해주세요(123번)"
-                  />
-                ) : (
-                  <></>
-                )}
+                {error ? <Message error header="실패" content={errorMessage} /> : <></>}
               </Segment>
 
               <Button.Group floated="right">

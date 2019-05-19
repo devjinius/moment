@@ -32,12 +32,22 @@ class Home extends Component {
 
   componentDidMount() {
     Promise.all([ApiCommon.get('/api/todos'), ApiCommon.get('/api/priorities')]).then(results => {
-      const { todos } = results.shift().data;
-      const { priorities } = results.shift().data;
+      const todoData = results.shift().data;
+      const priorityData = results.shift().data;
+
+      if (todoData.error) {
+        alert(todoData.errorMessage);
+        return;
+      }
+      if (priorityData.error) {
+        alert(priorityData.errorMessage);
+        return;
+      }
+
       this.setState({
         ...this.state,
-        todos,
-        priorities
+        todos: todoData.todos,
+        priorities: priorityData.priorities
       });
     });
   }
@@ -72,9 +82,10 @@ class Home extends Component {
     }
 
     ApiCommon.post('/api/todo', newTodo).then(res => {
-      const { error, todo } = res.data;
+      const { todo, error, errorMessage } = res.data;
 
       if (error) {
+        alert(errorMessage);
         return;
       }
 
@@ -94,9 +105,10 @@ class Home extends Component {
     const { todos } = this.state;
 
     ApiCommon.remove('/api/todo/', id).then(res => {
-      const { error } = res.data;
+      const { error, errorMessage } = res.data;
 
       if (error) {
+        alert(errorMessage);
         return;
       }
 
