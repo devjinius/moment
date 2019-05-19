@@ -1,1 +1,1 @@
-module.exports = [require('./todo')];
+module.exports = [require('./todo'), require('./priority')];

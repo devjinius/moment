@@ -1,3 +1,5 @@
+const Priority = require('./priority');
+
 module.exports = (sequelize, DataTypes) => {
   const Todo = sequelize.define(
     'Todo',
@@ -24,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       priority: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        defaultValue: 5
+        references: { model: Priority, key: 'id' }
       },
       deadline: {
         type: DataTypes.DATE,

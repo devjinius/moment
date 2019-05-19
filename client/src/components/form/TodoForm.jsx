@@ -20,6 +20,7 @@ class TodoForm extends Component {
       success,
       error
     } = this.props;
+    console.log(this.props);
 
     const isLoding = id => (id === -1 ? true : false);
 
@@ -85,8 +86,8 @@ class TodoForm extends Component {
                   <Form.Radio
                     label="지정하지 않음"
                     name="priority"
-                    value={5}
-                    checked={priority === 5}
+                    value={null}
+                    checked={priority === null}
                     onChange={handleChange}
                   />
                 </Form.Group>

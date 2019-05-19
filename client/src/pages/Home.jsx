@@ -37,6 +37,16 @@ class Home extends Component {
         todos: data
       });
     });
+    ApiCommon.get('/api/priorities').then(res => {
+      console.log(res);
+    });
+    // Promise.all([ApiCommon.get('/api/todos'), ApiCommon.get('/api/priorities')]).then(results => {
+    //   const { data } = results.data;
+    //   this.setState({
+    //     ...this.state,
+    //     todos: data
+    //   });
+    // });
   }
 
   handleChange = e => {
