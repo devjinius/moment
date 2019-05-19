@@ -18,17 +18,9 @@ class Home extends Component {
       content: '',
       error: false
     },
-    todos: [
-      {
-        id: -1,
-        title: '',
-        content: '',
-        deadline: '',
-        checked: false
-      }
-    ],
+    todos: [{}],
     priorities: [{ color: '', id: -1, label: '' }],
-    order: 'priority'
+    order: 'createdAt'
   };
 
   componentDidMount() {
