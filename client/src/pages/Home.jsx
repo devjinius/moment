@@ -111,14 +111,14 @@ class Home extends Component {
     const { todos } = this.state;
 
     const index = todos.findIndex(todo => todo.id === id);
-    const selected = todos[index];
+
     const nextTodos = [...todos];
-    const updateData = { checked: !selected.checked };
+    const updateData = { checked: !todos[index].checked };
 
     ApiCommon.patch('/api/todo/', id, updateData).then(res => {
-      const { data } = res.data;
+      const { todo } = res.data;
 
-      nextTodos[index].checked = data.checked;
+      nextTodos[index].checked = todo.checked;
 
       this.setState({
         ...this.state,
