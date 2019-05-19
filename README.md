@@ -4,6 +4,13 @@ live in the moment
 
 미래에 할 일을 Todo App에 맡기고 현재에 집중하세요.
 
+## Feature
+
+- Manage Todo list
+- Add deadline at Todo
+- Add priority
+- Ordering Todo list
+
 ## Getting Started
 
 1. node 설치
@@ -26,6 +33,8 @@ live in the moment
 
 > sudo apt-get install mysql-server-5.7
 
+> timedatectl set-timezone Asia/Seoul (타임존 변경)
+
 3. yarn 설치
 
 > npm install yarn -g
@@ -38,7 +47,9 @@ live in the moment
 
 5. sequelize 설치 후 db 세팅
 
-> yarn global add sequelize-cli
+> export NODE_ENV=production (배포환경 설정, 관련 변수들 모두 세팅해주어야 함)
+
+> npm install sequelize-cli -g
 
 > yarn
 
@@ -48,14 +59,14 @@ live in the moment
 
 > sequelize db:seed
 
-6. client 빌드
+6. 서버 실행
 
-> cd client
-
-> yarn
-
-> yarn build
-
-7. 서버 실행
+> cd ..
 
 > yarn start
+
+## Branch 설명
+
+원래대로라면 dev branch를 따로 두어 master에는 react build 파일만 놔두는 것이 맞습니다.
+
+그렇지만 과제임을 감안해 커밋 기록을 한눈에 볼 수 있도록 따로 브랜치를 나누지 않았습니다.
