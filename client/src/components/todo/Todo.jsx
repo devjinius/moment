@@ -22,24 +22,19 @@ class Todo extends Component {
     this.setState({ activeIndex: newIndex });
   };
 
-  getPriorityIcon(priority) {
-    if (priority === 1) {
-      return <Icon name="star" color="red" />;
-    }
+  getPriorityIcon(priority, priorities) {
+    const getIcon = priorityObj => {
+      if (priorityObj.id === priority) {
+        icon = <Icon name="star" color={priorityObj.color} />;
+        return true;
+      }
+      return false;
+    };
 
-    if (priority === 2) {
-      return <Icon name="star" color="orange" />;
-    }
+    let icon = <></>;
+    priorities.some(getIcon);
 
-    if (priority === 3) {
-      return <Icon name="star" color="grey" />;
-    }
-
-    if (priority === 4) {
-      return <Icon name="star" color="black" />;
-    }
-
-    return <></>;
+    return icon;
   }
 
   getDeadlineItem(deadline, checked) {
@@ -80,7 +75,17 @@ class Todo extends Component {
 
   render() {
     const { activeIndex } = this.state;
-    const { title, content, deadline, id, checked, priority, onToggle, onRemove } = this.props;
+    const {
+      title,
+      content,
+      deadline,
+      id,
+      checked,
+      priority,
+      priorities,
+      onToggle,
+      onRemove
+    } = this.props;
 
     return (
       <Grid className="todo-grid">
@@ -88,7 +93,7 @@ class Todo extends Component {
           <Grid.Column width={14}>
             <Accordion className="todo-accordion" styled>
               <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                {this.getPriorityIcon(priority)}
+                {this.getPriorityIcon(priority, priorities)}
                 {this.getAlramItem(deadline, checked)}
                 <TodoHeader className={checked ? 'done' : 'todo'}>{title}</TodoHeader>
               </Accordion.Title>

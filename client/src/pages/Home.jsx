@@ -128,13 +128,14 @@ class Home extends Component {
   };
 
   render() {
-    const { newTodo, todos } = this.state;
+    const { newTodo, todos, priorities } = this.state;
     return (
       <>
         <NewContainer {...newTodo} onChange={this.handleChange} onCreate={this.handleCreate} />
         <Wrapper>
           <TodoContainer
             todos={todos}
+            priorities={priorities}
             handleToggle={this.handleToggle}
             handleRemove={this.handleRemove}
           />
