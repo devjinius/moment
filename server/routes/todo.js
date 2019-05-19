@@ -2,9 +2,30 @@ const express = require('express');
 const router = express.Router();
 const model = require('../models/index');
 const errorMessage = require('../util/errorMessage');
+const sequelize = require('sequelize');
 
 router.get('/todos', (req, res) => {
   model.Todo.findAll({})
+    .then(todos => {
+      res.json({
+        error: false,
+        todos
+      });
+    })
+    .catch(err => {
+      console.log(`에러가 발생했습니다. ${err.message}`);
+      res.json({
+        error: true,
+        errorMessage: errorMessage(0001)
+      });
+    });
+});
+
+router.get('/todos/:order', (req, res) => {
+  console.log(req.params.order);
+  model.Todo.findAll({
+    order: [[sequelize.fn('isnull', sequelize.col(req.params.order))], [req.params.order, 'ASC']]
+  })
     .then(todos => {
       res.json({
         error: false,

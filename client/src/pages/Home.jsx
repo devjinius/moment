@@ -27,7 +27,8 @@ class Home extends Component {
         checked: false
       }
     ],
-    priorities: [{ color: '', id: -1, label: '' }]
+    priorities: [{ color: '', id: -1, label: '' }],
+    order: 'priority'
   };
 
   componentDidMount() {
@@ -139,8 +140,21 @@ class Home extends Component {
     });
   };
 
+  handleOrder = e => {
+    const orderFlag = e.target.value;
+
+    ApiCommon.get(`/api/todos/${orderFlag}`).then(res => {
+      const { todos } = res.data;
+      this.setState({
+        ...this.state,
+        todos,
+        order: orderFlag
+      });
+    });
+  };
+
   render() {
-    const { newTodo, todos, priorities } = this.state;
+    const { newTodo, todos, priorities, order } = this.state;
     return (
       <>
         <NewContainer {...newTodo} onChange={this.handleChange} onCreate={this.handleCreate} />
@@ -148,6 +162,8 @@ class Home extends Component {
           <TodoContainer
             todos={todos}
             priorities={priorities}
+            order={order}
+            onOrderClick={this.handleOrder}
             handleToggle={this.handleToggle}
             handleRemove={this.handleRemove}
           />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { default as Todo } from './Todo';
+import { default as ControlTab } from './ControlTab';
 
 const getTodoList = ({ todos, priorities, handleToggle, handleRemove }) =>
   todos.map(todo => (
@@ -13,7 +14,12 @@ const getTodoList = ({ todos, priorities, handleToggle, handleRemove }) =>
   ));
 
 const TodoContainer = props => {
-  return <>{getTodoList(props)}</>;
+  return (
+    <>
+      <ControlTab order={props.order} onClick={props.onOrderClick} />
+      {getTodoList(props)}
+    </>
+  );
 };
 
 export default TodoContainer;

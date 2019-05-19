@@ -47,11 +47,6 @@ const NewContainer = ({ title, content, onChange, onCreate, error }) => (
         ) : (
           <></>
         )}
-        <Grid.Row>
-          <Grid.Column width={14}>
-            <Divider />
-          </Grid.Column>
-        </Grid.Row>
       </Grid>
     </Form>
   </Wrapper>
