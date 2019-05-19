@@ -1,6 +1,7 @@
 import React from 'react';
-import './App.scss';
 import { Route, BrowserRouter } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+
 import { Home, EditTodo } from './pages';
 
 import { HeaderContainer } from './components/header';
@@ -10,6 +11,9 @@ import { Container } from 'semantic-ui-react';
 function App() {
   return (
     <Container>
+      <Helmet>
+        <title>Moment</title>
+      </Helmet>
       <HeaderContainer />
       <BrowserRouter>
         <Route exact path="/" component={Home} />
