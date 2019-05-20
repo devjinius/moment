@@ -66,7 +66,7 @@ class Todo extends Component {
     }
 
     const diff = getDiffFromNow(deadline);
-    return 0 <= diff && diff <= 3 ? true : false;
+    return diff <= 0 ? true : false;
   }
 
   getAlramItem(deadline, checked) {
